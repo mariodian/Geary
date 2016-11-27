@@ -119,7 +119,16 @@ class Geary {
         $signature = base64_encode($raw_signature);
     
         if ($signature === $header_signature) {
-            return TRUE;
+            return array(
+                'order_id'              => $_GET['order_id'],
+                'amount'                => $_GET['amount'],
+                'amount_in_btc'         => $_GET['amount_in_btc'],
+                'amount_paid_in_btc'    => $_GET['amount_paid_in_btc'],
+                'status'                => $_GET['status'],
+                'address'               => $_GET['address'],
+                'transaction_ids'       => $_GET['transaction_ids'],
+                'callback_data'         => $_GET['callback_data'],
+            );
         } else {
             return FALSE;
         }
