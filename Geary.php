@@ -99,6 +99,33 @@ class Geary {
     }
     
     /**
+    * Check Order Callback
+    *
+    * Check for any order status changes via callback URL
+    * 
+    * @return mixed
+    */
+    public function check_order_callback() {
+        $header_signature = $this->get_header('X-Signature');
+        $request_path = $_SERVER['REDIRECT_URL'] ? $_SERVER['REDIRECT_URL'] : $_SERVER['SCRIPT_NAME'];
+        
+        $nonce = NULL;
+        $body = NULL;
+        $request_uri = "$request_path?" . rawurldecode(http_build_query($_GET));
+        
+        $constant_digest = hash('sha512', $nonce . $body, TRUE);
+        $payload = $_SERVER['REQUEST_METHOD'] . $request_uri . $constant_digest;
+        $raw_signature = hash_hmac('sha512', $payload, $this->gateway_secret, TRUE);
+        $signature = base64_encode($raw_signature);
+    
+        if ($signature === $header_signature) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
     * Order Websocket Link
     *
     * Get an order link for status monitoring via websocket
@@ -127,33 +154,6 @@ class Geary {
     	);
 
     	return $this->send_signed_request($data);
-    }
-    
-    /**
-    * Receive Order
-    *
-    * Check for any order status changes via callback URL
-    * 
-    * @return mixed
-    */
-    public function receive_order() {
-        $header_signature = $this->get_header('X-Signature');
-        $request_path = $_SERVER['REDIRECT_URL'] ? $_SERVER['REDIRECT_URL'] : $_SERVER['SCRIPT_NAME'];
-        
-        $nonce = NULL;
-        $body = NULL;
-        $request_uri = "$request_path?" . rawurldecode(http_build_query($_GET));
-        
-        $constant_digest = hash('sha512', $nonce . $body, TRUE);
-        $payload = $_SERVER['REQUEST_METHOD'] . $request_uri . $constant_digest;
-        $raw_signature = hash_hmac('sha512', $payload, $this->gateway_secret, TRUE);
-        $signature = base64_encode($raw_signature);
-    
-        if ($signature === $header_signature) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
     }
     
     /**
