@@ -1,8 +1,14 @@
-# Geary
-Mycelium Gear PHP API - Access all API features of https://gear.mycelium.com.
+# Geary - Mycelium Gear PHP API
+Access all API features of https://gear.mycelium.com. 
+
+Create a bitcoin payment gateway for your eshop. Create custom orders with Mycelium Gear Gateway.
+
+![Mycelium Gear Payment Gateway](http://i.imgur.com/a79MjSo.png)
 
 ## Create new Gateway 
-In order to use Mycelium Gear API you need to get a gateway ID and secrety. Create new gateway [here](https://admin.gear.mycelium.com/gateways/new).
+In order to use Mycelium Gear API you need to get a gateway ID and secret. Create new gateway [here](https://admin.gear.mycelium.com/gateways/new). 
+
+Don't forget to save your gateway secret somewhere safe!
 
 ## Examples
 
