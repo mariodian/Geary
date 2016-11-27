@@ -48,7 +48,7 @@ $geary->$geary->cancel_order($payment_id);
 ?>
 ````
 
-### Check order
+### Manualy Check order status
 ````
 <?php
 require_once('./Geary.php');
@@ -66,6 +66,24 @@ if ($order->payment_id) {
     
     // Show a payment gateway URL
     echo '<a href="' . $url . '" target="_blank">Pay</a>';
+}
+?>
+````
+
+### Check order status from Gear's webhook
+````
+<?php
+require_once('./Geary.php');
+
+$gateway_id = 'XXXXXXXXX';
+$gateway_secret = 'YYYYYYYYY';
+
+$geary = new Geary($gateway_id, $gateway_secret);
+$order = $geary->receive_order();
+
+// Order status was received
+if ($order !== FALSE) {
+    // Update the local order data
 }
 ?>
 ````
