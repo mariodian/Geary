@@ -44,7 +44,7 @@ $gateway_secret = 'YYYYYYYYY';
 $payment_id = 'XXXXXYYYYY';
 
 $geary = new Geary($gateway_id, $gateway_secret);
-$geary->$geary->cancel_order($payment_id);
+$geary->cancel_order($payment_id);
 ?>
 ````
 
@@ -59,7 +59,7 @@ $gateway_secret = 'YYYYYYYYY';
 $payment_id = 'XXXXXYYYYY';
 
 $geary = new Geary($gateway_id, $gateway_secret);
-$order = $geary->$geary->check_order($payment_id);
+$order = $geary->check_order($payment_id);
 
 if ($order->payment_id) {
     $url = "https://gateway.gear.mycelium.com/pay/{$order->payment_id}";
