@@ -18,6 +18,48 @@ $price = 13.9;
 $keychain_id = 0;
 
 $geary = new Geary($gateway_id, $gateway_secret);
-$geary->create_order($price, $keychain_id);
+$order = $geary->create_order($price, $keychain_id);
+
+if ($order->payment_id) {
+  // Redirect to a payment gateway
+  redirect("https://gateway.gear.mycelium.com/pay/{$order->payment_id}");
+}
+?>
+````
+
+### Cancel order
+````
+<?php
+require_once('./Geary.php');
+
+$gateway_id = 'XXXXXXXXX';
+$gateway_secret = 'YYYYYYYYY';
+
+$payment_id = 'XXXXXYYYYY';
+
+$geary = new Geary($gateway_id, $gateway_secret);
+$geary->$geary->cancel_order($payment_id);
+?>
+````
+
+### Check order
+````
+<?php
+require_once('./Geary.php');
+
+$gateway_id = 'XXXXXXXXX';
+$gateway_secret = 'YYYYYYYYY';
+
+$payment_id = 'XXXXXYYYYY';
+
+$geary = new Geary($gateway_id, $gateway_secret);
+$order = $geary->$geary->check_order($payment_id);
+
+if ($order->payment_id) {
+    $url = "https://gateway.gear.mycelium.com/pay/{$order->payment_id}";
+    
+    // Show a payment gateway URL
+    echo '<a href="' . $url . '" target="_blank">Pay</a>';
+}
 ?>
 ````
