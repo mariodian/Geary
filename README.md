@@ -79,11 +79,31 @@ $gateway_id = 'XXXXXXXXX';
 $gateway_secret = 'YYYYYYYYY';
 
 $geary = new Geary($gateway_id, $gateway_secret);
-$order = $geary->receive_order();
+$order = $geary->check_order_callback();
 
 // Order status was received
 if ($order !== FALSE) {
-    // Update the local order data
+    // Update the local order data received
+    // Data in $order are as follows
+    /*
+    Array
+    (
+        [order_id] => 1
+        [amount] => 100
+        [amount_in_btc] => 0.14628625
+        [amount_paid_in_btc] => 0.14628625
+        [status] => 2
+        [address] => 1NXRQdyb1aTn4ucEGqVDZvFkG9FRyhLWGY
+        [transaction_ids] => ["txidXXX"]
+        [keychain_id] => 0
+        [last_keychain_id] => 0
+        [after_payment_redirect_to] => http://example.com/payments/success
+        [auto_redirect] => true
+        [callback_data] => some random data
+    )
+    */
+} else {
+    echo 'Signature mismatch';
 }
 ?>
 ````
