@@ -107,3 +107,6 @@ if ($order !== FALSE) {
 }
 ?>
 ````
+
+## Support me
+Bitcoin donations are welcome at (1DBKaSLXpzGEXSWk1wJLRSAU7qAHhCYXvk)[https://blockchain.info/address/1DBKaSLXpzGEXSWk1wJLRSAU7qAHhCYXvk]. Thank you!
