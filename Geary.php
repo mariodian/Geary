@@ -111,6 +111,11 @@ class Geary {
         
         $nonce = NULL;
         $body = NULL;
+        
+        if ($after_payment_redirect_to = $_GET['after_payment_redirect_to']) {
+            $_GET['after_payment_redirect_to'] = urlencode($after_payment_redirect_to);
+        }
+
         $request_uri = "$request_path?" . rawurldecode(http_build_query($_GET));
         
         $constant_digest = hash('sha512', $nonce . $body, TRUE);
