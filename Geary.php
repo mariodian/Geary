@@ -112,7 +112,7 @@ class Geary {
         $nonce = NULL;
         $body = NULL;
         
-        if ($after_payment_redirect_to = $_GET['after_payment_redirect_to']) {
+        if (isset($_GET['after_payment_redirect_to']) && $after_payment_redirect_to = $_GET['after_payment_redirect_to']) {
             $_GET['after_payment_redirect_to'] = urlencode($after_payment_redirect_to);
         }
 
