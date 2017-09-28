@@ -42,11 +42,12 @@ class Geary {
     *                           the next order.
     * @return mixed
     */
-    public function create_order($amount, $keychain_id) {
+    public function create_order($amount, $keychain_id, $callback_data) {
         $request = $this->endpoint('orders');
         $params = array(
             'amount' => $amount,
-            'keychain_id' => $keychain_id
+            'keychain_id' => $keychain_id,
+            'callback_data' => $callback_data
         );
 
     	$data = array(
