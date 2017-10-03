@@ -124,7 +124,7 @@ class Geary {
     */
     public function check_order_callback() {
         $header_signature = $this->get_header('X-Signature');
-        $request_path = $_SERVER['REDIRECT_URL'] ? $_SERVER['REDIRECT_URL'] : $_SERVER['SCRIPT_NAME'];
+        $request_path = $_SERVER['REQUEST_URI'];
         
         $nonce = NULL;
         $body = NULL;
@@ -132,11 +132,9 @@ class Geary {
         if (isset($_GET['after_payment_redirect_to']) && $after_payment_redirect_to = $_GET['after_payment_redirect_to']) {
             $_GET['after_payment_redirect_to'] = urlencode($after_payment_redirect_to);
         }
-
-        $request_uri = "$request_path?" . rawurldecode(http_build_query($_GET));
         
         $constant_digest = hash('sha512', $nonce . $body, TRUE);
-        $payload = $_SERVER['REQUEST_METHOD'] . $request_uri . $constant_digest;
+        $payload = $_SERVER['REQUEST_METHOD'] . $request_path . $constant_digest;
         $raw_signature = hash_hmac('sha512', $payload, $this->gateway_secret, TRUE);
         $signature = base64_encode($raw_signature);
     
